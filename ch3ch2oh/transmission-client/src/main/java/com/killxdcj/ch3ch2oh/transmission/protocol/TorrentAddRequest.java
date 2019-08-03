@@ -5,80 +5,80 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
-public class TorrentAddRequestBuilder extends Request {
+public class TorrentAddRequest extends Request {
 
-  public TorrentAddRequestBuilder() {
+  private TorrentAddRequest() {
     super("torrent-add");
   }
 
-  public static TorrentAddRequestBuilder newBuilder() {
-    return new TorrentAddRequestBuilder();
+  public static TorrentAddRequest newRequest() {
+    return new TorrentAddRequest();
   }
 
-  public TorrentAddRequestBuilder SetCookies(String cookies) {
+  public TorrentAddRequest SetCookies(String cookies) {
     arguments.put("cookies", cookies);
     return this;
   }
 
-  public TorrentAddRequestBuilder setDownloadDir(String downloadDir) {
+  public TorrentAddRequest setDownloadDir(String downloadDir) {
     arguments.put("download-dir", downloadDir);
     return this;
   }
 
-  public TorrentAddRequestBuilder setFilename(String filename) {
+  public TorrentAddRequest setFilename(String filename) {
     arguments.put("filename", filename);
     return this;
   }
 
-  public TorrentAddRequestBuilder setMetainfo(String metainfo) {
+  public TorrentAddRequest setMetainfo(String metainfo) {
     arguments.put("metainfo", metainfo);
     return this;
   }
 
-  public TorrentAddRequestBuilder setPaused(boolean paused) {
+  public TorrentAddRequest setPaused(boolean paused) {
     arguments.put("paused", paused);
     return this;
   }
 
-  public TorrentAddRequestBuilder setPeerLimit(int peerLimit) {
+  public TorrentAddRequest setPeerLimit(int peerLimit) {
     arguments.put("peer-limit", peerLimit);
     return this;
   }
 
-  public TorrentAddRequestBuilder setBandwidthPriority(int bandwidthPriority) {
+  public TorrentAddRequest setBandwidthPriority(int bandwidthPriority) {
     arguments.put("bandwidthPriority", bandwidthPriority);
     return this;
   }
 
-  public TorrentAddRequestBuilder indicesWantedFiles(String... files) {
+  public TorrentAddRequest addWantedFiles(String... files) {
     List<String> wantedFiles = (List<String>) arguments.computeIfAbsent("files-wanted",
         (Function<String, List<String>>) s -> new ArrayList<>());
     wantedFiles.addAll(Arrays.asList(files));
     return this;
   }
 
-  public TorrentAddRequestBuilder indicesUnWantedFiles(String... files) {
+  public TorrentAddRequest addUnWantedFiles(String... files) {
     List<String> unWantedFiles = (List<String>) arguments.computeIfAbsent("files-unwanted",
         (Function<String, List<String>>) s -> new ArrayList<>());
     unWantedFiles.addAll(Arrays.asList(files));
     return this;
   }
 
-  public TorrentAddRequestBuilder indicesHighPriorityFiles(String... files) {
+  public TorrentAddRequest addHighPriorityFiles(String... files) {
     List<String> highPriorityFiles = (List<String>) arguments.computeIfAbsent("priority-high",
         (Function<String, List<String>>) s -> new ArrayList<>());
     highPriorityFiles.addAll(Arrays.asList(files));
     return this;
   }
 
-  public TorrentAddRequestBuilder indicesLowPriorityFiles(String... files) {
+  public TorrentAddRequest addLowPriorityFiles(String... files) {
     List<String> lowPriorityFiles = (List<String>) arguments.computeIfAbsent("priority-low",
         (Function<String, List<String>>) s -> new ArrayList<>());
     lowPriorityFiles.addAll(Arrays.asList(files));
     return this;
   }
 
-  public TorrentAddRequestBuilder indicesNormalPriorityFiles(String... files) {
+  public TorrentAddRequest addNormalPriorityFiles(String... files) {
     List<String> normalPriorityFiles = (List<String>) arguments.computeIfAbsent("priority-normal",
         (Function<String, List<String>>) s -> new ArrayList<>());
     normalPriorityFiles.addAll(Arrays.asList(files));

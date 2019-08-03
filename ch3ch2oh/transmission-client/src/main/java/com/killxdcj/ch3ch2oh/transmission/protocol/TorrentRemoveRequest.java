@@ -4,24 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public class TorrentRemoveRequestBuilder extends Request {
+public class TorrentRemoveRequest extends Request {
 
-  public TorrentRemoveRequestBuilder() {
+  private TorrentRemoveRequest() {
     super("torrent-remove");
   }
 
-  public static TorrentRemoveRequestBuilder newBuilder() {
-    return new TorrentRemoveRequestBuilder();
+  public static TorrentRemoveRequest newRequest() {
+    return new TorrentRemoveRequest();
   }
 
-  public TorrentRemoveRequestBuilder addIds(int id) {
+  public TorrentRemoveRequest addIds(int id) {
     List<Integer> ids = (List<Integer>) arguments.computeIfAbsent("ids",
         (Function<String, List<Integer>>) s -> new ArrayList<>());
     ids.add(id);
     return this;
   }
 
-  public TorrentRemoveRequestBuilder deleteLocalData(boolean delete) {
+  public TorrentRemoveRequest deleteLocalData(boolean delete) {
     arguments.put("delete-local-data", delete);
     return this;
   }

@@ -6,24 +6,24 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class TorrentGetRequestBuilder extends Request {
+public class TorrentGetRequest extends Request {
 
-  public TorrentGetRequestBuilder() {
+  private TorrentGetRequest() {
     super("torrent-get");
   }
 
-  public static TorrentGetRequestBuilder newBuilder() {
-    return new TorrentGetRequestBuilder();
+  public static TorrentGetRequest newRequest() {
+    return new TorrentGetRequest();
   }
 
-  public TorrentGetRequestBuilder addIds(int id) {
+  public TorrentGetRequest addIds(int id) {
     List<Integer> ids = (List<Integer>) arguments.computeIfAbsent("ids",
         (Function<String, List<Integer>>) s -> new ArrayList<>());
     ids.add(id);
     return this;
   }
 
-  public TorrentGetRequestBuilder indicesWantedFields(FIELD... fields) {
+  public TorrentGetRequest addWantedFields(FIELD... fields) {
     List<String> fileds = (List<String>) arguments.computeIfAbsent("fields",
         (Function<String, List<String>>) s -> new ArrayList<>());
     fileds.addAll(
