@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.killxdcj.ch3ch2oh.dfs.proto";
+
+message IndexFilesRequest {
+  repeated string files = 1;
+}
+
+message IndexFilesResponse {
+  // Intended to be empty.
+}
+
+service DatanodeService {
+  rpc IndexFiles(IndexFilesRequest) returns (IndexFilesResponse) {}
+}
+
+// Represent the datanode info.
+message DataNode {
+  string id = 1;
+  string address = 2;
+  int32 grpcPort = 3;
+  int32 httpPort = 4;
+}
+
+// Represent a physical in datanode, id is the file's md5.
+// If the datanode index
+message PhysicalFile {
+  string id = 1;
+  string name = 2;
+  uint64 numBytes = 3;
+  uint64 generationStamp = 4;
+}
+
+message FilesReport {
+  repeated PhysicalFile filesAdded = 1;
+  repeated PhysicalFile filesUpdated = 2;
+  repeated string fileIdsRemoved = 3;
+}
+
+message VolumesReport {
+  // TBD
+}
+
+message DataNodeHeartbeatRequest {
+  DataNode datanode = 1;
+  FilesReport filesReport = 2;
+  VolumesReport volumesReport = 3;
+}
+
+message DataNodeHeartbeatResponse {
+  // Intented to be empty.
+}
+
+service NamenodeInternalService {
+  rpc DataNodeHeartbeat(DataNodeHeartbeatRequest) returns (DataNodeHeartbeatResponse) {}
+}
+
+message FileStatus {
+  PhysicalFile file = 1;
+  DataNode datanode = 2;
+}
+
+message FindFileRequest {
+  string name = 1;
+  uint64 numBytes = 2;
+}
+
+message FindFileResponse {
+  FileStatus fileStaus = 1;
+}
+
+message GetFileStatusRequest {
+  string id = 1;
+}
+
+message GetFileStatusResponse {
+  FileStatus fileStatus = 1;
+}
+
+service NamenodeService {
+  rpc FindFile(FindFileRequest) returns (FindFileResponse) {}
+  rpc GetFileStatus(GetFileStatusRequest) returns (GetFileStatusResponse) {}
+}
